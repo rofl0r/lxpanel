@@ -30,10 +30,12 @@ jobs:
       id: tarball
       run: |
         SRC="$PWD"
-        rm -rf .git .github
+        VER="${{ github.ref }}"
+        VER="$(printf '%s\n' "${VER##*/}")"
+        rm -rf .git*
         autoreconf -i
         cd ..
-        DST="$SRC-${{ github.ref }}"
+        DST="$SRC-$VER"
         mv "$SRC" "$DST"
         tar -cf "$DST".tar "$DST"
         xz -9 "$DST".tar

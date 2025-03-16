@@ -19,7 +19,9 @@ jobs:
         echo "## Changelog" > ../release_notes.md
         # requires GNU sort
         PREV=$(git tag | sort -Vr | head -n 2 | tail -n 1)
-        git log --pretty=format:"* %s (%h)" ${PREV}..${{ github.ref_name }} >> ../release_notes.md
+        CURR=$(git tag | sort -Vr | head -n 1)
+        echo git log --pretty=format:"* %s (%h)" ${PREV}..${CURR}
+        git log --pretty=format:"* %s (%h)" ${PREV}..${CURR} >> ../release_notes.md
         echo "changelog contains:"
         cat ../release_notes.md
         echo "release_notes=${PWD}/../release_notes.md" >> "$GITHUB_OUTPUT"

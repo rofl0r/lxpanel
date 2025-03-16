@@ -6,9 +6,10 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
-    - uses: actions/checkout@v4
+      uses: actions/checkout@v4
       with:
         submodules: recursive
 
@@ -49,4 +50,3 @@ jobs:
           ${{ steps.tarball.outputs.tarball_xz }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

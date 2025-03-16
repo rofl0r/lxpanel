@@ -35,11 +35,11 @@ jobs:
         cd ..
         cp -a "$SRC" "$DST"
         cd "$DST"
-        rm -rf .git*
         autoreconf -i
+        rm -rf .git* autom4te.cache
         sudo chown -R root:root .
         cd ..
-        tar -cf "$DST".tar "$DST"
+        tar -cf "$DST".tar "$(basename "$DST")"
         xz -9 "$DST".tar
         echo "tarball_xz=${DST}.tar.xz" >> "$GITHUB_OUTPUT"
 

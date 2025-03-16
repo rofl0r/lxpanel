@@ -17,9 +17,8 @@ jobs:
     - name: Generate Release Notes
       id: generate_release_notes
       run: |
-        # requires GNU sort
-        PREV=$(git tag | sort -Vr | head -n 2 | tail -n 1)
-        CURR=$(git tag | sort -Vr | head -n 1)
+        PREV=$(git tag -l --sort=-creatordate | head -n 2 | tail -n 1)
+        CURR=${{ github.ref_name }}
         echo "## Changelog" > ../release_notes.md
         git log --pretty=format:"* %s (%h)" ${PREV}..${CURR} >> ../release_notes.md
         echo "release_notes=${PWD}/../release_notes.md" >> "$GITHUB_OUTPUT"

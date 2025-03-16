@@ -32,11 +32,13 @@ jobs:
         SRC="$PWD"
         VER="${{ github.ref }}"
         VER="$(printf '%s\n' "${VER##*/}")"
+        DST="$SRC-$VER"
+        cd ..
+        cp -a "$SRC" "$DST"
+        cd "$DST"
         rm -rf .git*
         autoreconf -i
         cd ..
-        DST="$SRC-$VER"
-        mv "$SRC" "$DST"
         tar -cf "$DST".tar "$DST"
         xz -9 "$DST".tar
         echo "tarball_xz=${DST}.tar.xz" >> "$GITHUB_OUTPUT"

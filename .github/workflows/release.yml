@@ -1,5 +1,5 @@
 on:
-  push
+  push:
     tags:
       - '[0-9]*'
 

@@ -17,11 +17,11 @@ jobs:
       id: generate_release_notes
       run: |
         echo "## Changelog" > ../release_notes.md
-        git log --pretty=format:"* %s (%h)" $(git describe --tags --abbrev=0 @^)..@ >> ../release_notes.md
+        git log --pretty=format:"* %s (%h)" $(git describe --tags --abbrev=0 '@^')'..@' >> ../release_notes.md
         echo "changelog contains:"
         cat ../release_notes.md
         echo "git output:"
-        git log --pretty=format:"* %s (%h)" $(git describe --tags --abbrev=0 @^)..@
+        git log --pretty=format:"* %s (%h)" $(git describe --tags --abbrev=0 '@^')'..@'
         echo "release_notes=${PWD}/../release_notes.md" >> "$GITHUB_OUTPUT"
 
     - name: Install deps

@@ -34,10 +34,10 @@ jobs:
         DST="$SRC-$VER"
         cd ..
         cp -a "$SRC" "$DST"
-        sudo chown -R root:root "$DST"
         cd "$DST"
         rm -rf .git*
         autoreconf -i
+        sudo chown -R root:root .
         cd ..
         tar -cf "$DST".tar "$DST"
         xz -9 "$DST".tar

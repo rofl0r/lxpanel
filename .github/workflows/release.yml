@@ -30,11 +30,11 @@ jobs:
       id: tarball
       run: |
         SRC="$PWD"
-        VER="${{ github.ref }}"
-        VER="$(printf '%s\n' "${VER##*/}")"
+        VER="${{ github.ref_name }}"
         DST="$SRC-$VER"
         cd ..
         cp -a "$SRC" "$DST"
+        sudo chown -R root:root "$DST"
         cd "$DST"
         rm -rf .git*
         autoreconf -i
@@ -48,7 +48,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ github.ref }}
-        name: Release ${{ github.ref }}
+        name: Release ${{ github.ref_name }}
         body_path: ${{ steps.generate_release_notes.outputs.release_notes }}
         files: |
           ${{ steps.tarball.outputs.tarball_xz }}
